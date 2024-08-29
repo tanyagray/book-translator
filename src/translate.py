@@ -31,37 +31,65 @@ if os.path.exists(OUTPUT_FILE):
 # Create a new output file in "append" mode
 output_file = open(OUTPUT_FILE, "a")
 
+
+'''
+========================
+RE-USABLE FUNCTIONS
+========================
+'''
+
+def get_text_chunk_from_file(file):
+
+  text_chunk = ""
+
+  while True:
+    # read one letter/character at a time
+    # includes spaces, newlines ("enter"), tabs etc
+    current_character = file.read(1)
+
+    # if we read a character and it has no value,
+    # we've finished the file and gone past the end
+    # of the content.
+    # we should return the text_chunk because it
+    # will contain the final paragraph of the text.
+    if not current_character:
+      if len(text_chunk) > 0:
+        break
+      else:
+        text_chunk = None
+        break
+
+          
+    # if the current character is a "new line",
+    # then we can treat this as the end of a paragraph.
+    elif current_character == "\n":
+      if len(text_chunk) > 0:
+        break
+
+    # for all other characters, we should add it
+    # to the content chunk we are currently collecting.
+    else:
+      text_chunk = text_chunk + current_character
+
+  return text_chunk
+
+
 '''
 ========================
 SPLIT INTO CHUNKS
 ========================
 '''
 
-content_chunk = ""
-
 while True:
-    # read one letter/character at a time.
-    # includes spaces, newlines ("enter"), tabs etc
-    current_character = input_file.read(1)
 
-    # if we read a character and it has no value,
-    # we've finished the file and gone past the end
-    # of the content.
-    if not current_character:
-        if len(content_chunk) > 0:
-          output_file.write(content_chunk + "\n")
-        print("End of file")
-        break
-    
-    # if the current character is a "new line",
-    # then we can treat this as the end of a paragraph.
-    elif current_character == "\n":
-        if len(content_chunk) > 0:
-          output_file.write(content_chunk + "\n")
-          content_chunk = ""
+  chunk = get_text_chunk_from_file(input_file)
 
-    # for all other characters, we should add it
-    # to the content chunk we are currently collecting.
-    else:
-        content_chunk = content_chunk + current_character
+  if chunk:
+    output_file.write(chunk + "\n")
+
+  else:
+    print("\nDone")
+    break
+
+
 

@@ -9,8 +9,8 @@ Replace the values with your own.
 See the README file for details on each setting.
 '''
 
-INPUT_FILE = "input/Follow Me translation doc.txt"
-OUTPUT_FILE = "output/FMtranslatecut.csv"
+INPUT_FILE = "input/sample.txt"
+OUTPUT_FILE = "output/sample.csv"
 
 OPENAI_API_KEY = ""
 CLAUDE_API_KEY = ""

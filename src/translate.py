@@ -76,7 +76,7 @@ def get_text_chunk_from_file(file):
 
 '''
 ========================
-SPLIT INTO CHUNKS
+PROCESS THE FILE
 ========================
 '''
 
